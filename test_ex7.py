@@ -43,6 +43,8 @@ def test_task8(debug=False):
 def test_task9(debug=False):
     test_is_model_of(debug)
 
+
+
 test_task1(True)
 test_task2(True)
 test_task3(True)

@@ -41,11 +41,16 @@ def test_task8(debug=False):
     test_make_equality_as_SAME_in_model(debug)
     print('Passed', inspect.currentframe().f_code.co_name)
 
+print(
+    replace_equality_with_SAME_in_formulas({Formula.parse('x=y')})
+)
+sys.exit()
+
 # test_task1(True)
 # test_task2(True)
 # test_task3(True)
-# test_task4(True)
+test_task4(True)
 # test_task5(True)
 # test_task6(True)
 # test_task7(True)
-test_task8(True)
+# test_task8(True)

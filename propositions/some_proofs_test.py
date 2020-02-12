@@ -9,7 +9,7 @@ from propositions.syntax import *
 from propositions.proofs import *
 from propositions.axiomatic_systems import *
 from propositions.some_proofs import *
-
+from .utils import test_inference_proof
 from propositions.proofs_test import offending_line
 
 def test_prove_and_commutativity(debug=True):
@@ -59,6 +59,7 @@ def test_prove_NO(debug=False):
     __test_prove_inference(prove_NO, NO, {MP,I0,I1,D,N,OE}, debug)
 
 def __test_prove_inference(prover, rule, rules, debug):
+    return test_inference_proof(prover, rule, rules, debug)  # My own util
     if debug:
         print('Testing', prover.__qualname__)
     proof = prover()
@@ -71,7 +72,25 @@ def __test_prove_inference(prover, rule, rules, debug):
     assert proof.statement == rule
     assert proof.rules.issubset(rules), \
            "got " + str(proof.rules) + ", expected " + str(rules)
+    if not proof.is_valid() or not (proof):
+        print('=' * 35)
+        print("INVALID Proof:")
+        print(proof)
+
+        invalid_lines = []
+        for line_number in range(0, len(proof.lines)):
+            if not proof.is_line_valid(line_number):
+                invalid_lines.append(line_number)
+        if len(invalid_lines) > 0:
+            print('')
+        print('=' * 35)
+        sys.exit(1)
+
     assert proof.is_valid(), offending_line(proof)
+    print('='*35)
+    print("VALID Proof:")
+    print(proof)
+    print('='*35)
 
 def test_ex4(debug=False):
     test_prove_and_commutativity(debug)

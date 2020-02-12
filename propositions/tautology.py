@@ -135,7 +135,6 @@ def prove_in_model(formula: Formula, model:Model) -> Proof:
     # Setup
     assumptions = formulae_capturing_model(model)
     builder = ProofBuilder()
-
     # Check if the formula is one of our assumptions
     if formula in assumptions:
         builder.add_assumption_line(formula)
